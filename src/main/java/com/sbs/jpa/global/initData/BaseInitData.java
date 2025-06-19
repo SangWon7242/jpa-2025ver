@@ -15,6 +15,8 @@ public class BaseInitData {
   @Bean
   public ApplicationRunner BaseInutDataApplicationRunner () {
     return args -> {
+      if ( postService.count() > 0 ) return;
+
       Post post1 = postService.write("title1", "content1");
       System.out.printf("%d번 글이 생성 됨\n", post1.getId());
 
