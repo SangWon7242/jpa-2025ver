@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 @Configuration
 @RequiredArgsConstructor
@@ -13,7 +14,7 @@ public class BaseInitData {
   private final PostService postService;
 
   @Bean
-  public ApplicationRunner BaseInutDataApplicationRunner () {
+  public ApplicationRunner BaseInitDataApplicationRunner () {
     return args -> {
       if ( postService.count() > 0 ) return;
 

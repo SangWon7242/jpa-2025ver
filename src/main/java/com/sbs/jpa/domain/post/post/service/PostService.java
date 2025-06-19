@@ -13,13 +13,14 @@ public class PostService {
   private final PostRepository postRepository;
 
   public Post write(String subject, String content) {
-    Post post = new Post();
-    // id는 자동 생성되므로 설정하지 않음
-    post.setCreatedAt(LocalDateTime.now());
-    post.setModifiedAt(LocalDateTime.now());
-    post.setSubject(subject);
-    post.setContent(content);
-    post.setBlind(false);
+    Post post = new Post(
+        null,
+        LocalDateTime.now(),
+        LocalDateTime.now(),
+        subject,
+        content,
+        false
+    );
 
     postRepository.save(post);
 
