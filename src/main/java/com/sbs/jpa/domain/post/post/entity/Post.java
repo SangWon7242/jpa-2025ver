@@ -11,6 +11,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Setter
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Post {
   @Id
   @GeneratedValue(strategy = IDENTITY)
