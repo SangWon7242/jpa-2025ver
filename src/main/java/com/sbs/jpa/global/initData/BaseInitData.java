@@ -14,18 +14,24 @@ public class BaseInitData {
   private final PostService postService;
 
   @Bean
-  public ApplicationRunner BaseInitDataApplicationRunner () {
+  @Order(1) // Order 값이 낮을수록 먼저 실행됨
+  public ApplicationRunner baseInitData1ApplicationRunner () {
     return args -> {
+      System.out.println("BaseInitData1ApplicationRunner 실행됨");
+
       if ( postService.count() > 0 ) return;
 
       Post post1 = postService.write("title1", "content1");
-      System.out.printf("%d번 글이 생성 됨\n", post1.getId());
-
       Post post2 = postService.write("title2", "content2");
-      System.out.printf("%d번 글이 생성 됨\n", post2.getId());
-
       Post post3 = postService.write("title3", "content3");
-      System.out.printf("%d번 글이 생성 됨\n", post3.getId());
+    };
+  }
+
+  @Bean
+  @Order(2)
+  public ApplicationRunner baseInitData2ApplicationRunner () {
+    return args -> {
+      System.out.println("BaseInitData2ApplicationRunner 실행됨");
     };
   }
 }
