@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,5 +30,9 @@ public class PostService {
 
   public long count() {
     return postRepository.count();
+  }
+
+  public Optional<Post> findById(long id) {
+    return postRepository.findById(id);
   }
 }
