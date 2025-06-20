@@ -4,6 +4,7 @@ import com.sbs.jpa.domain.post.post.entity.Post;
 import com.sbs.jpa.domain.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -33,10 +34,12 @@ public class PostService {
     return postRepository.findById(id);
   }
 
+  @Transactional
   public void modify(Post post, String subject, String content) {
-    post.setSubject(subject);
-    post.setContent(content);
+    Post pst = postRepository.findById(post.getId())
+        .orElseThrow(() -> new IllegalArgumentException("%d번 게시물을 찾을 수 없습니다.".formatted(post.getId())));
 
-    postRepository.save(post); // UPDATE 쿼리 실행됨
+    pst.setSubject(subject);
+    pst.setContent(content);
   }
 }
