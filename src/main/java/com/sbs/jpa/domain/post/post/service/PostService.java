@@ -5,7 +5,6 @@ import com.sbs.jpa.domain.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -14,14 +13,12 @@ public class PostService {
   private final PostRepository postRepository;
 
   public Post write(String subject, String content) {
-    Post post = Post.builder()
-        .createdAt(LocalDateTime.now())
-        .modifiedAt(LocalDateTime.now())
+    Post post = Post
+        .builder()
         .subject(subject)
         .content(content)
         .blind(false)
         .build();
-
 
     postRepository.save(post);
 
@@ -34,5 +31,12 @@ public class PostService {
 
   public Optional<Post> findById(long id) {
     return postRepository.findById(id);
+  }
+
+  public void modify(Post post, String subject, String content) {
+    post.setSubject(subject);
+    post.setContent(content);
+
+    postRepository.save(post); // UPDATE 쿼리 실행됨
   }
 }

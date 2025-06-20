@@ -2,6 +2,7 @@ package com.sbs.jpa.global.initData;
 
 import com.sbs.jpa.domain.post.post.entity.Post;
 import com.sbs.jpa.domain.post.post.service.PostService;
+import com.sbs.jpa.standard.util.Ut;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +32,10 @@ public class BaseInitData {
   @Order(2)
   public ApplicationRunner baseInitData2ApplicationRunner () {
     return args -> {
+      Ut.thread.sleep(1000); // 1초 대기
+
       Post post1 = postService.findById(1L).get();
+      postService.modify(post1, "title1 modified", "content1 modified");
     };
   }
 }
